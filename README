@@ -1,0 +1,99 @@
+# ----------------------------------------------------------------------- #
+# Nombre proyecto:       Prueba Sertracen JSF                             #
+# Autor:                 Rene Garay                                       #
+# Fecha Creación:        2015-05-20										  #
+# DBMS:           		 MySQL 5                                          #
+# Frameworks:            Java                                             #
+# 			             JSF 2                                            #
+# 			             Primefaces 4                                     #
+# 			             Spring 4                                         #
+# 			             Spring Security 3                                #
+# 			             Spring Data JPA 1.5                              #
+# 			             Hibernate 4                                      #
+# 			             JasperReports 5.6                                #
+# 			             Maven 3                                          #
+# IDEs:            		 Eclipse Luna                                     #
+# 			             Ireport 5.6                                      #
+# Servidor:              WildFly 8.2                                      #
+# ----------------------------------------------------------------------- #
+
+
+# ----------------------------------------------------------------------- #
+# URL                                                                     #
+# ----------------------------------------------------------------------- #
+http://sertracenprueba-rgaaray.rhcloud.com/sertracen-prueba-rgaray
+
+
+# ----------------------------------------------------------------------- #
+# Extracto                                                                #
+# ----------------------------------------------------------------------- #
+Proyecto creado como prueba técnica para la empresa Sertracen. Sistema
+creado para el manejo de esquelas de la compañia. La aplicación también
+cuenta con un modulo de seguridad.
+
+
+# ----------------------------------------------------------------------- #
+# Descripción Técnica                                                     #
+# ----------------------------------------------------------------------- #
+Se utilizó una base de datos MySQL para almacenar la información. Para el 
+desarrollo se utilizaron distintos frameworks java dentro de los 
+principales tenemos los siguientes: JSF, Primefaces, Spring, 
+Spring Security, Spring Data, JPA, Hibernate, Jasper Reports. Se hizo uso 
+de herramientas de desarrollo tales como: Eclipse Luna y Ireport. La 
+aplicación se monto en un servidor de aplicaciones JBoss WildFly 8.2 en 
+un sistema operativo RedHat. Se utilizó Maven para el manejo de las 
+librerias. Y Jasper Reports para la reporteria.
+
+
+# ----------------------------------------------------------------------- #
+# Descripción Funcional                                                   #
+# ----------------------------------------------------------------------- #
+Al iniciar la aplicación se muestra una pantalla de login donde se
+requiere ingresar el usuario con sus respectivas credenciales para poder
+ingresar al sistema. (Usuario de prueba: use: system pass: prueba).
+
+La aplicación consta de un menú que contiene tres partes. La primera es
+el idioma donde aparece un combo que maneja la internacionalización del 
+sistema, actualmente se cuenta con el idioma español e inglés. 
+
+La segunda parte es la administración donde se encuentran dos catálogos 
+el de esquelas y el de usuarios, los dos cuenta con un grid que muestra 
+una lista con la información correspondiente a estos, a demás cuenta con 
+las opciones de agregar, editar y eliminar registros, así como la opción 
+de exportar este listado a un formato pdf o de excel.
+
+La tercera parte consta de un reporte de esquelas el cual nos brinda un
+listado de las esquelas con las que cuenta el sistema, se puede exportar
+en formato pdf, excel y word.
+
+En la esquina superior derecha de la ventana de la aplicación se encuentra
+un botón de cerrar sesión el cual redirige a la pantalla de login.
+
+# ----------------------------------------------------------------------- #
+# E-R                                                                     #
+# ----------------------------------------------------------------------- #
+
+-------------------------------------------
+| CAT_ESQUELA							  |
+-------------------------------------------
+| CAT_ESQ_ID            int(11)       PK  |
+| CAT_ESQ_DESCRIPTION   varchar(100)      |
+| CAT_ESQ_CODE          varchar(10)       |
+| CAT_ESQ_VALUE_CANCEL  decimal(10,4)     |
+| CAT_ESQ_CONFISCATION  varchar(50)       |
+| CAT_ESQ_ACTIVE        bit(1)            |
+| CAT_ESQ_DOCUMENT      varchar(50)       |
+-------------------------------------------
+
+-------------------------------------------
+| SEC_USER   							  |
+-------------------------------------------
+| SEC_USE_ID            int(11)       PK  |
+| SEC_USE_NAME          varchar(60)       |
+| SEC_USE_USERNAME      varchar(45)       |
+| SEC_USE_PASSWORD      varchar(20)       |
+| SEC_USE_ROLE          varchar(45)       |
+-------------------------------------------
+
+
+

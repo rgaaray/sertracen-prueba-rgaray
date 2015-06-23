@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui" template="../main.xhtml">
+
+	<ui:define name="content">
+		<f:view>
+			<f:event listener="#{secUserMB.onLoad}" type="preRenderView" />
+		</f:view>
+
+		<p:panel id="secUserPanel" header="#{labels.secUser}">
+			<h:form id="secUserForm">
+				<p:commandButton widgetVar="addButton" value="#{labels.button_add}"
+					action="/pages/sec/secUserAddEdit.faces" ajax="false"
+					actionListener="#{secUserAddEditMB.add}" />
+				<p:commandButton widgetVar="deleteButton"
+					value="#{labels.button_delete}" action="#{secUserMB.delete}"
+					update="secUserDataTable" oncomplete="unselectRows();"  />
+				<p:commandButton widgetVar="updateButton"
+					value="#{labels.button_update}" update="secUserDataTable"
+					action="/pages/sec/secUserAddEdit.faces"
+					actionListener="#{secUserAddEditMB.update}" />
+
+				<p:dataTable id="secUserDataTable" widgetVar="dataTable" var="secUser"
+					loadingMessage="#{labels.secUser_load}" value="#{secUserMB.secUserList}"
+					paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,20" rowKey="#{secUser.id}"
+					selectionMode="single">
+
+					<p:ajax event="rowSelect" listener="#{secUserMB.selectSecUser}"
+						oncomplete="enableButtons();" />
+					<p:ajax event="page" listener="#{secUserMB.unselectSecUser}"
+						oncomplete="unselectRows();" />
+					<p:ajax event="rowUnselect" listener="#{secUserMB.unselectSecUser}"
+						oncomplete="disableButtons();" />
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{labels.secUser_id}" />
+						</f:facet>
+						<h:outputText value="#{secUser.id}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{labels.secUser_name}" />
+						</f:facet>
+						<h:outputText value="#{secUser.secUserName}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{labels.secUser_username}" />
+						</f:facet>
+						<h:outputText value="#{secUser.secUserUsername}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{labels.secUser_password}" />
+						</f:facet>
+						<h:outputText value="#{secUser.secUserPassword}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{labels.secUser_role}" />
+						</f:facet>
+						<h:outputText value="#{secUser.secUserRole}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</p:panel>
+
+	</ui:define>
+</ui:composition>

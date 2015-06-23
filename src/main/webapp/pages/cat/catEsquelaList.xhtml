@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui" template="../main.xhtml">
+
+	<ui:define name="content">
+		<f:view>
+			<f:event listener="#{catEsquelaMB.onLoad}" type="preRenderView" />
+		</f:view>
+
+		<p:panel id="catEsquelaPanel" header="#{labels.catEsquela}">
+			<h:form id="catEsquelaForm">
+				<p:commandButton widgetVar="addButton" value="#{labels.button_add}"
+					action="/pages/cat/catEsquelaAddEdit.faces" ajax="false"
+					actionListener="#{catEsquelaAddEditMB.add}" />
+				<p:commandButton widgetVar="deleteButton" value="#{labels.button_delete}"
+					action="#{catEsquelaMB.delete}" update="catEsquelaDataTable" oncomplete="unselectRows();"  />
+				<p:commandButton widgetVar="updateButton" value="#{labels.button_update}"
+					update="catEsquelaDataTable" action="/pages/cat/catEsquelaAddEdit.faces"
+					actionListener="#{catEsquelaAddEditMB.update}" />
+				
+				<p:commandButton value="XLS" ajax="false" style="float: right" >
+		        	<p:dataExporter type="xls" target="catEsquelaDataTable" fileName="esquelas" />
+		        </p:commandButton>
+				<p:commandButton value="PDF" ajax="false" style="float: right" >
+		        	<p:dataExporter type="pdf" target="catEsquelaDataTable" fileName="esquelas" />
+		        </p:commandButton>
+				
+				<p:dataTable id="catEsquelaDataTable" widgetVar="dataTable" var="catEsquela" loadingMessage="#{labels.catEsquela_load}"
+					value="#{catEsquelaMB.catEsquelaList}" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} "
+					rowsPerPageTemplate="5,10,20" rowKey="#{catEsquela.id}" selectionMode="single">
+						
+					<p:ajax event="rowSelect" listener="#{catEsquelaMB.selectCatEsquela}" oncomplete="enableButtons();" />
+					<p:ajax event="page" listener="#{catEsquelaMB.unselectCatEsquela}" oncomplete="unselectRows();" />
+					<p:ajax event="rowUnselect" listener="#{catEsquelaMB.unselectCatEsquela}" oncomplete="disableButtons();" />
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{labels.catEsquela_id}" />
+						</f:facet>
+						<h:outputText value="#{catEsquela.id}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{labels.catEsquela_code}" />
+						</f:facet>
+						<h:outputText value="#{catEsquela.catEsquelaCode}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{labels.catEsquela_description}" />
+						</f:facet>
+						<h:outputText value="#{catEsquela.catEsquelaDescription}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{labels.catEsquela_valueToCancel}" />
+						</f:facet>
+						<h:outputText value="$ #{catEsquela.catEsquelaValueToCancel}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{labels.catEsquela_confiscation}" />
+						</f:facet>
+						<h:outputText value="#{catEsquela.catEsquelaConfiscation}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{labels.catEsquela_document}" />
+						</f:facet>
+						<h:outputText value="#{catEsquela.catEsquelaDocument}" />
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+		</p:panel>
+
+	</ui:define>
+</ui:composition>
